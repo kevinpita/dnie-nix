@@ -1,4 +1,8 @@
-autofirma-nix:
+{
+  self,
+  autofirma-nix,
+  nixpkgs,
+}:
 {
   config,
   lib,
@@ -8,7 +12,6 @@ autofirma-nix:
 let
   cfg = config.programs.dnie;
   inherit (pkgs.stdenv.hostPlatform) system;
-  upstreamPkgs = autofirma-nix.inputs.nixpkgs.legacyPackages.${system};
 in
 {
   imports = [ autofirma-nix.nixosModules.autofirma ];
@@ -29,10 +32,10 @@ in
       # AutoFirma runs in an FHS env without libpcsclite, so it cannot reach pcscd.
       # Use the pcsclite of this system so the client matches the daemon.
       package = lib.mkDefault (
-        autofirma-nix.packages.${system}.autofirma.override {
+        self.packages.${system}.autofirma.override {
           buildFHSEnv =
             args:
-            upstreamPkgs.buildFHSEnv (
+            nixpkgs.legacyPackages.${system}.buildFHSEnv (
               args // { targetPkgs = fhsPkgs: args.targetPkgs fhsPkgs ++ [ pkgs.pcsclite.lib ]; }
             );
         }

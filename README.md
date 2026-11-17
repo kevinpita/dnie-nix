@@ -8,10 +8,10 @@ Use your Spanish electronic ID card (DNIe) on NixOS with one option.
 `programs.dnie.enable = true;` gives you:
 
 - **pcscd**, the smart card daemon, with `opensc` and `pcsc-tools`.
-- **AutoFirma** from [autofirma-nix](https://github.com/nix-community/autofirma-nix), with Firefox integration and access to pcscd.
+- **AutoFirma** from [autofirma-nix](https://github.com/nix-community/autofirma-nix), built with the nixpkgs of this flake, with Firefox integration and access to pcscd.
 - **Firefox** loads the OpenSC PKCS#11 module, so websites can read your certificates.
 
-A daily workflow updates `flake.lock` and builds AutoFirma. It pushes the new lock only when the build passes.
+A daily workflow updates nixpkgs and autofirma-nix, refreshes the Maven hashes, and builds AutoFirma. It pushes the update only when the build passes.
 
 ## Getting started
 
@@ -46,7 +46,7 @@ sudo nixos-rebuild switch --flake .#myhost
 ```
 
 > [!IMPORTANT]
-> Do not add `inputs.nixpkgs.follows` to `dnie-nix`, or to `dnie-nix/autofirma-nix`. AutoFirma is built with Maven, and its dependency hashes only match the Maven of the nixpkgs that autofirma-nix pins. With your nixpkgs, the build fails with `hash mismatch in fixed-output derivation '…-jmulticard-dependencies.drv'`.
+> Do not add `inputs.nixpkgs.follows` to `dnie-nix`. AutoFirma is built with Maven, and the hashes in `fixed-output-derivations.lock` only match the Maven of the nixpkgs that this flake pins. With your nixpkgs, the build fails with `hash mismatch in fixed-output derivation '…-jmulticard-dependencies.drv'`.
 
 AutoFirma is not in a binary cache, so the first build compiles it locally. This takes a few minutes.
 
@@ -83,4 +83,10 @@ Your system gets new versions when you update the input:
 
 ```sh
 nix flake update dnie-nix
+```
+
+To refresh the Maven hashes by hand, for example after you change the nixpkgs pin of this repository, run this in the repository root:
+
+```sh
+nix run .#update-hashes
 ```

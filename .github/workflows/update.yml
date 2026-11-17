@@ -29,14 +29,19 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
+      # A new nixpkgs can bring a new Maven, which changes the Maven hashes.
+      - name: Refresh Maven hashes
+        if: steps.update.outputs.changed == 'true'
+        run: nix run .#update-hashes
+
       - name: Build AutoFirma through the module
         if: steps.update.outputs.changed == 'true'
         run: nix flake check --print-build-logs
 
-      - name: Push the new lock
+      - name: Push the update
         if: steps.update.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -am "chore: update flake.lock"
+          git commit -am "chore: update flake.lock and Maven hashes"
           git push
