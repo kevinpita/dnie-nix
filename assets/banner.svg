@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1280 420" role="img" aria-labelledby="title desc">
+  <title id="title">dnie-nix</title>
+  <desc id="desc">A Spanish electronic ID card with a chip and a Nix snowflake, next to the option programs.dnie.enable = true.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#1b2a4a"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#dbe4f0"/>
+    </linearGradient>
+    <linearGradient id="chip" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6d77a"/>
+      <stop offset="1" stop-color="#c9982f"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7ebae4" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#7ebae4" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="frame">
+      <rect width="1280" height="420" rx="28"/>
+    </clipPath>
+    <clipPath id="photo">
+      <rect x="-172" y="-44" width="108" height="136" rx="10"/>
+    </clipPath>
+    <!-- One arm of the snowflake. Six rotated copies make the full shape. -->
+    <g id="arm" fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 -13 H40 M23 -13 l9.5 -16.5"/>
+    </g>
+    <g id="flake">
+      <use xlink:href="#arm" href="#arm" stroke="#5277c3"/>
+      <use xlink:href="#arm" href="#arm" stroke="#7ebae4" transform="rotate(60)"/>
+      <use xlink:href="#arm" href="#arm" stroke="#5277c3" transform="rotate(120)"/>
+      <use xlink:href="#arm" href="#arm" stroke="#7ebae4" transform="rotate(180)"/>
+      <use xlink:href="#arm" href="#arm" stroke="#5277c3" transform="rotate(240)"/>
+      <use xlink:href="#arm" href="#arm" stroke="#7ebae4" transform="rotate(300)"/>
+    </g>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="1280" height="420" fill="url(#bg)"/>
+    <circle cx="320" cy="210" r="330" fill="url(#glow)"/>
+    <g transform="translate(1196 118) scale(3.2)" opacity="0.08">
+      <use xlink:href="#flake" href="#flake"/>
+    </g>
+
+    <!-- ID card -->
+    <g transform="translate(320 212) rotate(-7)">
+      <rect x="-192" y="-112" width="400" height="252" rx="22" fill="#020617" opacity="0.45"/>
+      <rect x="-200" y="-126" width="400" height="252" rx="22" fill="url(#card)"/>
+
+      <!-- Flag and title lines -->
+      <g>
+        <rect x="-172" y="-102" width="48" height="32" rx="5" fill="#aa151b"/>
+        <rect x="-172" y="-94" width="48" height="16" fill="#f1bf00"/>
+      </g>
+      <rect x="-110" y="-100" width="150" height="11" rx="5.5" fill="#1e293b"/>
+      <rect x="-110" y="-81" width="96" height="9" rx="4.5" fill="#94a3b8"/>
+
+      <!-- Photo -->
+      <rect x="-172" y="-44" width="108" height="136" rx="10" fill="#c3cfdf"/>
+      <g clip-path="url(#photo)" fill="#8fa1b8">
+        <circle cx="-118" cy="8" r="25"/>
+        <ellipse cx="-118" cy="88" rx="50" ry="44"/>
+      </g>
+
+      <!-- Chip -->
+      <g transform="translate(-40 -44)">
+        <rect width="74" height="56" rx="10" fill="url(#chip)"/>
+        <g fill="none" stroke="#8a6414" stroke-width="2.5" stroke-linecap="round" opacity="0.75">
+          <rect x="25" y="16" width="24" height="24" rx="5"/>
+          <path d="M0 19 H25 M0 37 H25 M49 19 H74 M49 37 H74 M37 0 V16 M37 40 V56"/>
+        </g>
+      </g>
+
+      <!-- Data lines -->
+      <g fill="#94a3b8">
+        <rect x="-40" y="34" width="120" height="10" rx="5"/>
+        <rect x="-40" y="56" width="84" height="10" rx="5"/>
+        <rect x="-40" y="78" width="104" height="10" rx="5"/>
+      </g>
+
+      <!-- Snowflake -->
+      <g transform="translate(128 -2) scale(0.92)">
+        <use xlink:href="#flake" href="#flake"/>
+      </g>
+      <rect x="100" y="78" width="72" height="10" rx="5" fill="#cbd5e1"/>
+    </g>
+
+    <!-- Text -->
+    <g font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+      <text x="620" y="112" font-size="20" font-weight="600" letter-spacing="4" fill="#7ebae4">NIXOS MODULE</text>
+      <text x="616" y="200" font-size="96" font-weight="800" letter-spacing="-2" fill="#f8fafc">dnie<tspan fill="#7ebae4">-nix</tspan></text>
+      <text x="620" y="250" font-size="27" fill="#cbd5e1">Spanish DNIe and AutoFirma in one option</text>
+    </g>
+    <g transform="translate(620 286)">
+      <rect width="500" height="62" rx="14" fill="#020617" opacity="0.6"/>
+      <rect x="0.75" y="0.75" width="498.5" height="60.5" rx="13.25" fill="none" stroke="#334155" stroke-width="1.5"/>
+      <text x="26" y="39" font-size="24" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" fill="#e2e8f0">programs.dnie.enable <tspan fill="#94a3b8">=</tspan> <tspan fill="#f6d77a">true</tspan><tspan fill="#94a3b8">;</tspan></text>
+    </g>
+  </g>
+</svg>
