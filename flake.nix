@@ -18,10 +18,8 @@
       autofirma-nix,
     }:
     let
-      forAllSystems = nixpkgs.lib.genAttrs [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
+      # The Maven hashes are only computed and tested on x86_64-linux.
+      forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
 
       example = nixpkgs.lib.nixosSystem {
         modules = [
